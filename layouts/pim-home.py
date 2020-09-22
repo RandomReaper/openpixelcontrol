@@ -7,7 +7,7 @@ spacing = 1.0/leds_per_meter  # m
 
 a = 464
 b = 189
-c = 350
+c = 400
 
 lines = []
 
