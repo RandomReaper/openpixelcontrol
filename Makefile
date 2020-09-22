@@ -1,18 +1,18 @@
-platform=$(shell uname)
-machine=$(shell uname -m) # armv7l for raspberry pi 2
+platform := $(shell uname -s)
+machine := $(shell uname -m)
 
 CFLAGS=-O2 -g
 ifeq ($(platform),Darwin)
   ALL=bin/dummy_client bin/dummy_server bin/gl_server
   GL_OPTS=-framework OpenGL -framework GLUT -Wno-deprecated-declarations
 else ifeq ($(platform),Linux)
-	ifeq ($(machine),armv7l)
-  	ALL=bin/dummy_client bin/dummy_server bin/tcl_server bin/apa102_server bin/gl_server
-  	GL_OPTS=-lGL -lglut -lGLU -lm
+  ifeq ($(machine),armv7l)
+    ALL=bin/dummy_client bin/dummy_server bin/tcl_server bin/apa102_server bin/gl_server
+    GL_OPTS=-lGL -lglut -lGLU -lm
   else
-	  ALL=bin/dummy_client bin/dummy_server bin/gl_server
-	  GL_OPTS=-lGL -lglut -lGLU -lm
-	endif
+    ALL=bin/dummy_client bin/dummy_server bin/gl_server
+    GL_OPTS=-lGL -lglut -lGLU -lm
+  endif
 endif
 
 all: $(ALL)
