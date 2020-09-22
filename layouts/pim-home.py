@@ -5,13 +5,9 @@ import math
 leds_per_meter = 30
 spacing = 1.0/leds_per_meter  # m
 
-a_size = 6.0
-b_size = 3.0
-c_size = 6.0
-
-a = int(math.ceil(a_size * leds_per_meter))
-b = int(math.ceil(b_size * leds_per_meter))
-c = int(math.ceil(c_size * leds_per_meter))
+a = 464
+b = 189
+c = 350
 
 lines = []
 
