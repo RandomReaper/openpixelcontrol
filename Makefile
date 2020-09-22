@@ -1,12 +1,18 @@
 platform=$(shell uname)
+machine=$(shell uname -m) # armv7l for raspberry pi 2
 
 CFLAGS=-O2 -g
 ifeq ($(platform),Darwin)
   ALL=bin/dummy_client bin/dummy_server bin/gl_server
   GL_OPTS=-framework OpenGL -framework GLUT -Wno-deprecated-declarations
 else ifeq ($(platform),Linux)
-  ALL=bin/dummy_client bin/dummy_server bin/tcl_server bin/apa102_server bin/ws2801_server bin/lpd8806_server bin/gl_server
-  GL_OPTS=-lGL -lglut -lGLU -lm
+	ifeq ($(machine),armv7l)
+  	ALL=bin/dummy_client bin/dummy_server bin/tcl_server bin/apa102_server bin/gl_server
+  	GL_OPTS=-lGL -lglut -lGLU -lm
+  else
+	  ALL=bin/dummy_client bin/dummy_server bin/gl_server
+	  GL_OPTS=-lGL -lglut -lGLU -lm
+	endif
 endif
 
 all: $(ALL)
@@ -24,11 +30,11 @@ bin/dummy_server: src/dummy_server.c src/opc_server.c src/opc.h src/types.h
 
 bin/tcl_server: src/tcl_server.c src/opc_server.c src/opc.h src/types.h src/spi.c src/spi.h src/cli.c src/cli.h
 	mkdir -p bin
-	gcc ${CFLAGS} -o $@ src/tcl_server.c src/opc_server.c src/cli.c
+	gcc ${CFLAGS} -o $@ src/tcl_server.c src/opc_server.c src/cli.c src/spi.c
 
 bin/apa102_server: src/apa102_server.c src/opc_server.c src/opc.h src/types.h src/spi.c src/spi.h src/cli.c src/cli.h
 	mkdir -p bin
-	gcc ${CFLAGS} -o $@ src/apa102_server.c src/opc_server.c src/cli.c
+	gcc ${CFLAGS} -o $@ src/apa102_server.c src/opc_server.c src/cli.c src/spi.c
 
 bin/ws2801_server: src/ws2801_server.c src/opc_server.c src/opc.h src/types.h src/spi.c src/spi.h src/cli.c src/cli.h
 	mkdir -p bin
