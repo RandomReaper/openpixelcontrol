@@ -3,7 +3,7 @@
 """A demo client for Open Pixel Control
 http://github.com/zestyping/openpixelcontrol
 
-Test size and colords
+Just turn the leds on with minimal red
 
 To run:
 First start the gl simulator using, for example, the included "wall" layout
@@ -40,7 +40,7 @@ parser.add_option('-l', '--layout', dest='layout',
 parser.add_option('-s', '--server', dest='server', default='127.0.0.1:7890',
                     action='store', type='string',
                     help='ip and port of server')
-parser.add_option('-f', '--fps', dest='fps', default=20,
+parser.add_option('-f', '--fps', dest='fps', default=1,
                     action='store', type='int',
                     help='frames per second')
 
@@ -83,20 +83,8 @@ print
 # color function
 
 def pixel_color(t, coord, ii, n_pixels, loop_count):
-    """Compute the color of a given pixel.
 
-    t: time in seconds since the program started.
-    ii: which pixel this is, starting at 0
-    coord: the (x, y, z) position of the pixel as a tuple
-    n_pixels: the total number of pixels
-
-    Returns an (r, g, b) tuple in the range 0-255
-
-    """
-    if (ii%10 == loop_count%10):
-        return (255,255,255)
-
-    return (0,0,0)
+    return (1,0,0)
 
 #-------------------------------------------------------------------------------
 # send pixels
